@@ -9,53 +9,16 @@ namespace WinFormsApp1
     public static class Methods
     {
         static int j;
-        static int TestVar1 = 10;
-        static int TestVar2 = 1000;
-        static int TestVar3 = 1000000;
+        static int TestVar;
         public static List<TraceResult> ListOfResults = new List<TraceResult>();
-        
 
-        public static void Method1()
+        public static void Method()
         {
-            Tracer tracer = new Tracer();
-            tracer.StartTrace();
             j = 0;
-            for (int i = 0; i < TestVar1; i++)
+            for (int i = 0; i < TestVar; i++)
             {
                 j++;
             }
-            tracer.StopTrace();
-            TraceResult result = new TraceResult();
-            result = tracer.GetTraceResult();
-            ListOfResults.Add(result);
-        }
-        public static void Method2()
-        {
-            Tracer tracer = new Tracer();
-            tracer.StartTrace();
-            j = 0;
-            for (int i = 0; i < TestVar2; i++)
-            {
-                j++;
-            }
-            tracer.StopTrace();
-            TraceResult result = new TraceResult();
-            result = tracer.GetTraceResult();
-            ListOfResults.Add(result);
-        }
-        public static void Method3()
-        {
-            Tracer tracer = new Tracer();
-            tracer.StartTrace();
-            j = 0;
-            for (int i = 0; i < TestVar3; i++)
-            {
-                j++;
-            }
-            tracer.StopTrace();
-            TraceResult result = new TraceResult();
-            result = tracer.GetTraceResult();
-            ListOfResults.Add(result);
         }
     }
 }
