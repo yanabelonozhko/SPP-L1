@@ -33,12 +33,16 @@
             this.label2 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.CountMethEditBox = new System.Windows.Forms.TextBox();
-            this.MethNameEditBox = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.panel = new System.Windows.Forms.TableLayoutPanel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -52,9 +56,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(137, 581);
+            this.button1.Location = new System.Drawing.Point(12, 171);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(407, 29);
+            this.button1.Size = new System.Drawing.Size(332, 29);
             this.button1.TabIndex = 5;
             this.button1.Text = "Подсчитать время выполнения";
             this.button1.UseVisualStyleBackColor = true;
@@ -63,7 +67,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(255, 627);
+            this.label2.Location = new System.Drawing.Point(10, 223);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(150, 20);
             this.label2.TabIndex = 6;
@@ -71,9 +75,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(450, 623);
+            this.button2.Location = new System.Drawing.Point(12, 261);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 29);
+            this.button2.Size = new System.Drawing.Size(407, 29);
             this.button2.TabIndex = 7;
             this.button2.Text = "Очистить";
             this.button2.UseVisualStyleBackColor = true;
@@ -83,79 +87,111 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label3.Location = new System.Drawing.Point(294, 672);
+            this.label3.Location = new System.Drawing.Point(177, 214);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(76, 31);
             this.label3.TabIndex = 8;
             this.label3.Text = "label3";
             // 
-            // button3
+            // checkBox1
             // 
-            this.button3.Location = new System.Drawing.Point(568, 302);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(83, 29);
-            this.button3.TabIndex = 10;
-            this.button3.Text = "добавить";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(12, 45);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(18, 17);
+            this.checkBox1.TabIndex = 9;
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
-            // CountMethEditBox
+            // checkBox2
             // 
-            this.CountMethEditBox.Location = new System.Drawing.Point(238, 304);
-            this.CountMethEditBox.Name = "CountMethEditBox";
-            this.CountMethEditBox.Size = new System.Drawing.Size(324, 27);
-            this.CountMethEditBox.TabIndex = 11;
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(12, 82);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(18, 17);
+            this.checkBox2.TabIndex = 10;
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
-            // MethNameEditBox
+            // checkBox3
             // 
-            this.MethNameEditBox.Location = new System.Drawing.Point(12, 305);
-            this.MethNameEditBox.Name = "MethNameEditBox";
-            this.MethNameEditBox.Size = new System.Drawing.Size(220, 27);
-            this.MethNameEditBox.TabIndex = 12;
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Location = new System.Drawing.Point(12, 119);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(18, 17);
+            this.checkBox3.TabIndex = 11;
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(36, 42);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 20);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Метод 1";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(36, 79);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(65, 20);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "Метод 2";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(11, 281);
+            this.label6.Location = new System.Drawing.Point(36, 119);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(131, 20);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "Название метода";
+            this.label6.Size = new System.Drawing.Size(65, 20);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Метод 3";
             // 
-            // label7
+            // button3
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(238, 282);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(284, 20);
-            this.label7.TabIndex = 14;
-            this.label7.Text = "количество просчитываемых значений";
+            this.button3.Location = new System.Drawing.Point(12, 296);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(150, 29);
+            this.button3.TabIndex = 18;
+            this.button3.Text = "Сохранить";
+            this.button3.UseVisualStyleBackColor = true;
             // 
-            // panel
+            // textBox1
             // 
-            this.panel.ColumnCount = 3;
-            this.panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.panel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 216F));
-            this.panel.Location = new System.Drawing.Point(12, 53);
-            this.panel.Name = "panel";
-            this.panel.RowCount = 2;
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.panel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.panel.Size = new System.Drawing.Size(566, 125);
-            this.panel.TabIndex = 15;
+            this.textBox1.Location = new System.Drawing.Point(193, 42);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(125, 27);
+            this.textBox1.TabIndex = 19;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(193, 79);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(125, 27);
+            this.textBox2.TabIndex = 20;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(193, 120);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(125, 27);
+            this.textBox3.TabIndex = 21;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1192, 726);
-            this.Controls.Add(this.panel);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.MethNameEditBox);
-            this.Controls.Add(this.CountMethEditBox);
+            this.ClientSize = new System.Drawing.Size(424, 498);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button3);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.checkBox3);
+            this.Controls.Add(this.checkBox2);
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.label2);
@@ -175,11 +211,15 @@
         private Label label2;
         private Button button2;
         private Label label3;
-        private Button button3;
-        private TextBox CountMethEditBox;
-        private TextBox MethNameEditBox;
+        private CheckBox checkBox1;
+        private CheckBox checkBox2;
+        private CheckBox checkBox3;
+        private Label label4;
+        private Label label5;
         private Label label6;
-        private Label label7;
-        private TableLayoutPanel panel;
+        private Button button3;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private TextBox textBox3;
     }
 }

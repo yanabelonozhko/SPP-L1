@@ -6,19 +6,29 @@ using System.Threading.Tasks;
 
 namespace WinFormsApp1
 {
-    public static class Methods
+    public class MyMethods
     {
-        static int j;
-        static int TestVar;
-        public static List<TraceResult> ListOfResults = new List<TraceResult>();
+        public delegate void MethodContainer();
+        public event MethodContainer TracingStart;
 
-        public static void Method()
+        public delegate void MethodContainer2();
+        public event MethodContainer TracingStoped;
+
+        public delegate TraceResult MethodContainer3();
+        public event MethodContainer3 TracingTime;
+
+        static int j;
+        
+        public void Method(int TestVar)
         {
+            TracingStart();
             j = 0;
             for (int i = 0; i < TestVar; i++)
             {
                 j++;
             }
+            TracingStoped();
+            TracingTime();
         }
     }
 }
