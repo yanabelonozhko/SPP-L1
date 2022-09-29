@@ -5,49 +5,131 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 
-public class TraceResult
-{
-    public string MethodName;
-    public string ClassName;
-    public int MethodTime;
-}
-
-// Интерфейс, который будет реализовывать класс
-public interface ITracer
-{
-    void StartTrace();
-    void StopTrace();
-    TraceResult GetTraceResult();
-}
-
 namespace lab1
 {
-    public class Tracer : ITracer
+    public class TraceResult
     {
-        public List<TraceResult> ListOfResults = new List<TraceResult>();
-        Stopwatch stopwatch = new Stopwatch();
-        string MethodName;
-        string ClassName;
-        public void StartTrace()
+        public ThreadResult[] Threads { get; set; }
+    }
+
+    public class ThreadResult
+    {
+        private readonly Stopwatch stopwatch;
+
+        public int Id { get; set; }
+     
+        public int Time { get; set; }
+        
+        public List<MethodResult> Methods { get; } = new List<MethodResult>();
+
+        public Stack<MethodResult> MethodsCallsStack { get; } = new Stack<MethodResult>();
+
+        public ThreadResult()
         {
-            MethodName = new StackTrace(1).GetFrame(0).GetMethod().Name;
-            ClassName = new StackTrace(1).GetFrame(0).GetMethod().DeclaringType.Name;
-            stopwatch.Restart();
+            stopwatch = new Stopwatch();
             stopwatch.Start();
         }
+
         public void StopTrace()
         {
             stopwatch.Stop();
-            ListOfResults.Add(GetTraceResult());
+            Time = (int)stopwatch.ElapsedMilliseconds;
         }
+    }
+
+    public class MethodResult
+    {
+        private readonly Stopwatch stopwatch;
+
+        public string Name { get; set; }
+
+        public string Class { get; set; }
+
+        public int Time { get; set; }
+
+        public List<MethodResult> Methods { get; set; } = new List<MethodResult>();
+
+        public MethodResult()
+        {
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
+        }
+
+        public void StopTrace() 
+        {
+            stopwatch.Stop();
+            Time = (int)stopwatch.ElapsedMilliseconds;
+        }
+    }
+    // Интерфейс, который будет реализовывать класс
+    public interface ITracer
+    {
+        void StartTrace();
+
+        void StopTrace();
+
+        TraceResult GetTraceResult();
+    }
+
+    public class Tracer : ITracer
+    {
+        public Dictionary<int, ThreadResult> ThreadResults = new Dictionary<int, ThreadResult>();
+
+        public void StartTrace()
+        {
+            var stackTrace = new StackTrace();
+            var method = stackTrace.GetFrame(1).GetMethod();
+            var methodResult = new MethodResult
+            {
+                Name = method.Name,
+                Class = method.DeclaringType.Name,
+            };
+
+            var currentThread = Thread.CurrentThread;
+            if (ThreadResults.TryGetValue(currentThread.ManagedThreadId, out var existingThreadResult))
+            {
+                existingThreadResult.Methods.Add(methodResult);
+                existingThreadResult.MethodsCallsStack.Push(methodResult);
+                return;
+            }
+
+            var threadResult = new ThreadResult
+            {
+                Id = currentThread.ManagedThreadId,
+            };
+            
+            threadResult.Methods.Add(methodResult);
+            threadResult.MethodsCallsStack.Push(methodResult);
+            ThreadResults.Add(threadResult.Id, threadResult);
+        }
+
+        public void StopTrace()
+        {
+            var currentThreadId = Thread.CurrentThread.ManagedThreadId;
+            var currentThreadResult = ThreadResults[currentThreadId];
+            var currentMethod = currentThreadResult.MethodsCallsStack.Pop();
+            currentMethod.StopTrace();
+            if (currentThreadResult.MethodsCallsStack.Count == 0)
+            {
+                currentThreadResult.Methods.Add(currentMethod);
+            }
+            else
+            {
+                var prevResult = currentThreadResult.MethodsCallsStack.Peek();
+                prevResult.Methods.Add(currentMethod);
+            }
+        }
+
         public TraceResult GetTraceResult()
         {
-            TraceResult result = new TraceResult();
-            // Тут ещё имя метода и имя класса но это потом
-            result.MethodTime = Convert.ToInt32(stopwatch.ElapsedTicks);
-            result.MethodName = MethodName;
-            result.ClassName = ClassName;
-            return result;
+            var threadResults = new List<ThreadResult>();
+            foreach (var result in threadResults)
+            {
+                result.StopTrace();
+                threadResults.Add(result);
+            }
+
+            return new TraceResult { Threads = threadResults.ToArray() };
         }
     }
 }
