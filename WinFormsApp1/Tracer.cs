@@ -27,15 +27,19 @@ public interface ITracer
 
 namespace WinFormsApp1
 {
+
     // Сам класс Tracer
     public class Tracer : ITracer
     {
+        public List<TraceResult> ListOfResults = new List<TraceResult>();
         Stopwatch stopwatch = new Stopwatch();
         public void StartTrace() {
+            stopwatch.Restart();
             stopwatch.Start();
         }
         public void StopTrace() {
             stopwatch.Stop();
+            ListOfResults.Add(GetTraceResult());
         }
         public TraceResult GetTraceResult()
         {

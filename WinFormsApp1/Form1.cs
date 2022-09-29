@@ -7,11 +7,11 @@ namespace WinFormsApp1
         {
             InitializeComponent();
         }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             int MainTime = 0;
-            List<TraceResult> ListOfResults = new List<TraceResult>();
+            
 
             MyMethods myMethods = new MyMethods();
             Tracer myTracer = new Tracer();
@@ -19,9 +19,9 @@ namespace WinFormsApp1
             //Подписались на события
             myMethods.TracingStart += myTracer.StartTrace;
             myMethods.TracingStoped += myTracer.StopTrace;
-            myMethods.TracingTime += myTracer.GetTraceResult;
 
-           
+            listBox1.DataSource = myTracer.ListOfResults;
+
 
 
 

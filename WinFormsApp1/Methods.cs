@@ -14,9 +14,6 @@ namespace WinFormsApp1
         public delegate void MethodContainer2();
         public event MethodContainer TracingStoped;
 
-        public delegate TraceResult MethodContainer3();
-        public event MethodContainer3 TracingTime;
-
         static int j;
         
         public void Method(int TestVar)
@@ -28,7 +25,6 @@ namespace WinFormsApp1
                 j++;
             }
             TracingStoped();
-            TracingTime();
         }
     }
 }
