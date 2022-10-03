@@ -74,7 +74,7 @@ namespace lab1
 
     public class Tracer : ITracer
     {
-        public ConcurrentDictionary<int, ThreadResult> ThreadResults = new ConcurrentDictionary<int, ThreadResult>();
+        public ConcurrentDictionary<int, ThreadResult> AllMyThreads = new ConcurrentDictionary<int, ThreadResult>();
 
         public void StartTrace()
         {
@@ -87,7 +87,7 @@ namespace lab1
             };
 
             var currentThread = Thread.CurrentThread;
-            if (ThreadResults.TryGetValue(currentThread.ManagedThreadId, out var existingThreadResult))
+            if (AllMyThreads.TryGetValue(currentThread.ManagedThreadId, out var existingThreadResult))
             {
                 existingThreadResult.Methods.Add(methodResult);
                 existingThreadResult.MethodsCallsStack.Push(methodResult);
@@ -101,13 +101,13 @@ namespace lab1
 
             threadResult.Methods.Add(methodResult);
             threadResult.MethodsCallsStack.Push(methodResult);
-            ThreadResults.TryAdd(threadResult.Id, threadResult);
+            AllMyThreads.TryAdd(threadResult.Id, threadResult);
         }
 
         public void StopTrace()
         {
             var currentThreadId = Thread.CurrentThread.ManagedThreadId;
-            var currentThreadResult = ThreadResults[currentThreadId];
+            var currentThreadResult = AllMyThreads[currentThreadId];
             var currentMethod = currentThreadResult.MethodsCallsStack.Pop();
             currentMethod.StopTrace();
 

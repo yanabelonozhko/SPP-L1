@@ -1,4 +1,6 @@
-﻿namespace lab1 {
+﻿using System.Text.Json;
+
+namespace lab1 {
     class Program
     {
         static void Main()
@@ -19,7 +21,13 @@
             thread2.Start();
             thread1.Join();
             thread2.Join();
-
+            TraceResult myTraceResult = new TraceResult();
+            myTraceResult =  myTracer.GetTraceResult();
+            using (FileStream fs = new FileStream("result-json.json", FileMode.OpenOrCreate))
+            {
+                JsonSerializer.SerializeAsync<TraceResult>(fs, myTraceResult);
+                Console.WriteLine("Data has been saved to file");
+            }
         }
     }
 }
