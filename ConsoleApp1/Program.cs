@@ -6,25 +6,20 @@
             Console.WriteLine("Отслеживание времени выполнения методов:");
             long MainTime = 0;
 
-            MyMethods myMethods = new MyMethods();
             Tracer myTracer = new Tracer();
+            Foo foo = new Foo(myTracer);
+            Bar bar = new Bar(myTracer);
 
             //Подписались на события
-            myMethods.TracingStart += myTracer.StartTrace;
-            myMethods.TracingStoped += myTracer.StopTrace;
+            // myMethods.TracingStart += myTracer.StartTrace;
+            // myMethods.TracingStoped += myTracer.StopTrace;
+            Thread thread1 = new Thread(foo.MyMethod);
+            Thread thread2 = new Thread(bar.InnerMethod);
+            thread1.Start();
+            thread2.Start();
+            thread1.Join();
+            thread2.Join();
 
-            // Сюда писать методы новые >:C 
-            Console.WriteLine("start");
-            myMethods.Method(4000000);
-            myMethods.Method2(10);
-           
-          
-
-            foreach (var e in myTracer.ListOfResults) {
-                Console.WriteLine(e.Time.ToString() +" - "+ e.Name.ToString() + " - " + e.Class.ToString());
-                MainTime = MainTime + Convert.ToInt64(e.Time);
-            }
-            Console.WriteLine(MainTime);
         }
     }
 }
