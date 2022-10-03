@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Collections.Concurrent;
+using System.Text.Json.Serialization;
 
 namespace lab1
 {
@@ -23,6 +24,9 @@ namespace lab1
 
         public List<MethodResult> Methods { get; } = new List<MethodResult>();
 
+
+        // Стек для контроля включённых методов
+        [JsonIgnore]    
         public Stack<MethodResult> MethodsCallsStack { get; } = new Stack<MethodResult>();
 
         public ThreadResult()
@@ -40,6 +44,12 @@ namespace lab1
 
     public class MethodResult
     {
+        public MethodResult()
+        {
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
+        }
+
         private readonly Stopwatch stopwatch;
 
         public string Name { get; set; }
@@ -48,14 +58,13 @@ namespace lab1
 
         public int Time { get; set; }
 
-        public List<MethodResult> Methods { get; set; } = new List<MethodResult>();
+        // Если в методе есть ещё какие-либо методы, то есть выполняющиеся в методе, 
+        // то нужно хранить эту информацию. 
+        // для этого я использую лист при чём этого же класса результатов работы метода
+        public List<MethodResult> MethodsInclude { get; set; } = new List<MethodResult>();
 
-        public MethodResult()
-        {
-            stopwatch = new Stopwatch();
-            stopwatch.Start();
-        }
-
+        // Этот метод будет вызываться из глобального метода StopTrace. Это нужно затем, чтобы если 
+        // в методе есть ещё методы, они постепенно обрабатывались, доставаясь из стека
         public void StopTrace()
         {
             stopwatch.Stop();
@@ -74,60 +83,96 @@ namespace lab1
 
     public class Tracer : ITracer
     {
-        public ConcurrentDictionary<int, ThreadResult> AllMyThreads = new ConcurrentDictionary<int, ThreadResult>();
+        // Данный словарь нужен для отслеживания, существует ли уже такой поток в учёте 
+        // или его только нужно добавить
+        public ConcurrentDictionary<int, ThreadResult> AllThreads = new ConcurrentDictionary<int, ThreadResult>();
 
         public void StartTrace()
         {
-            var stackTrace = new StackTrace();
+            // Нужно получить информацию о выполняемом методе. 
+            StackTrace stackTrace = new StackTrace();
             var method = stackTrace.GetFrame(1).GetMethod();
-            var methodResult = new MethodResult
+
+            // Класс, хранящий в себе информацию о методе
+            MethodResult methodResult = new MethodResult
             {
                 Name = method.Name,
                 Class = method.DeclaringType.Name,
             };
 
+            // Больше мы получить никакой информации о текущем методе не можем, 
+            // Так как включённые методы сами будут выполняться через StartTrace 
+            // Проверка, является ли текущий метод включённым можно осуществить через стек 
+            // И существует ли уже метод в этом потоке. 
             var currentThread = Thread.CurrentThread;
-            if (AllMyThreads.TryGetValue(currentThread.ManagedThreadId, out var existingThreadResult))
+
+            // Пробуем получить значение из словаря всех существующих тредов 
+            // Если такой метод существует, то 
+            if (AllThreads.TryGetValue(currentThread.ManagedThreadId, out var existingThreadResult))
             {
+                // Тоже самое, добавляем метод, а так же пушим его в стек
                 existingThreadResult.Methods.Add(methodResult);
                 existingThreadResult.MethodsCallsStack.Push(methodResult);
+                // ретурн, чтобы не выполнять ещё кусок кода
                 return;
             }
 
+            // Если же этот поток ещё не был добавлен в словарь, то во-первых надо его добавить
             var threadResult = new ThreadResult
             {
                 Id = currentThread.ManagedThreadId,
             };
 
+            // ИНИЦИАЛИЗАЦИЯ THREAD --------------------------------
+            // В массив методов в структуре потока добавляем текущий метод
             threadResult.Methods.Add(methodResult);
+
+            // Теперь надо запушить текущий метод, чтобы после проконтролировать, какой из 
+            // них будет включённым
             threadResult.MethodsCallsStack.Push(methodResult);
-            AllMyThreads.TryAdd(threadResult.Id, threadResult);
+            // -----------------------------------------------------
+
+            // Теперь добавляем в словарь
+            AllThreads.TryAdd(threadResult.Id, threadResult);
         }
 
         public void StopTrace()
         {
+            // получаем поток и по его айди находим его структуру в словаре
             var currentThreadId = Thread.CurrentThread.ManagedThreadId;
-            var currentThreadResult = AllMyThreads[currentThreadId];
+            var currentThreadResult = AllThreads[currentThreadId];
+
+            // Достаём метод из стека, который содержит объект класса потока
+            // И вызываем для него метод StopTrace чтобы получить в структуру 
+            // время выполнения метода
             var currentMethod = currentThreadResult.MethodsCallsStack.Pop();
             currentMethod.StopTrace();
 
+            // теперь рассматриваем стек текущего потока. Если он не пустой, то 
+            // мы значит, что у метода были какие-то включённые методы. 
             if (currentThreadResult.MethodsCallsStack.Count != 0)
             {
+                // Добавляем в струтуру текущего метода метод, который в него входит
                 var prevResult = currentThreadResult.MethodsCallsStack.Peek();
-                prevResult.Methods.Add(currentMethod);
+                prevResult.MethodsInclude.Add(currentMethod);
             }
         }
-
+      //  AllThreads - взять все ThreadResults отткуда
         public TraceResult GetTraceResult()
         {
-            var threadResults = new List<ThreadResult>();
-            foreach (var result in threadResults)
+            List<ThreadResult> SomeThreadResulst = new List<ThreadResult>();
+            foreach (var result in AllThreads)
             {
-                result.StopTrace();
-                threadResults.Add(result);
+                ThreadResult someThread = result.Value;
+                someThread.StopTrace();
+                SomeThreadResulst.Add(someThread);
             }
 
-            return new TraceResult { Threads = threadResults.ToArray() };
+            var awdawdawd = new TraceResult {
+                Threads = SomeThreadResulst.ToArray()
+            };
+
+            return awdawdawd;
         }
     }
 }

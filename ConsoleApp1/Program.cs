@@ -5,7 +5,6 @@ namespace lab1 {
     {
         static void Main()
         {
-            Console.WriteLine("Отслеживание времени выполнения методов:");
             long MainTime = 0;
 
             Tracer myTracer = new Tracer();
@@ -21,7 +20,8 @@ namespace lab1 {
             thread2.Start();
             thread1.Join();
             thread2.Join();
-            TraceResult myTraceResult = new TraceResult();
+            
+            var myTraceResult = new TraceResult();
             myTraceResult =  myTracer.GetTraceResult();
             using (FileStream fs = new FileStream("result-json.json", FileMode.OpenOrCreate))
             {
