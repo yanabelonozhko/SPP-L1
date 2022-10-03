@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Collections.Concurrent;
 
 namespace lab1
 {
@@ -17,9 +18,9 @@ namespace lab1
         private readonly Stopwatch stopwatch;
 
         public int Id { get; set; }
-     
+
         public int Time { get; set; }
-        
+
         public List<MethodResult> Methods { get; } = new List<MethodResult>();
 
         public Stack<MethodResult> MethodsCallsStack { get; } = new Stack<MethodResult>();
@@ -55,7 +56,7 @@ namespace lab1
             stopwatch.Start();
         }
 
-        public void StopTrace() 
+        public void StopTrace()
         {
             stopwatch.Stop();
             Time = (int)stopwatch.ElapsedMilliseconds;
@@ -73,7 +74,7 @@ namespace lab1
 
     public class Tracer : ITracer
     {
-        public Dictionary<int, ThreadResult> ThreadResults = new Dictionary<int, ThreadResult>();
+        public ConcurrentDictionary<int, ThreadResult> ThreadResults = new ConcurrentDictionary<int, ThreadResult>();
 
         public void StartTrace()
         {
@@ -97,10 +98,10 @@ namespace lab1
             {
                 Id = currentThread.ManagedThreadId,
             };
-            
+
             threadResult.Methods.Add(methodResult);
             threadResult.MethodsCallsStack.Push(methodResult);
-            ThreadResults.Add(threadResult.Id, threadResult);
+            ThreadResults.TryAdd(threadResult.Id, threadResult);
         }
 
         public void StopTrace()
@@ -109,11 +110,8 @@ namespace lab1
             var currentThreadResult = ThreadResults[currentThreadId];
             var currentMethod = currentThreadResult.MethodsCallsStack.Pop();
             currentMethod.StopTrace();
-            if (currentThreadResult.MethodsCallsStack.Count == 0)
-            {
-                currentThreadResult.Methods.Add(currentMethod);
-            }
-            else
+
+            if (currentThreadResult.MethodsCallsStack.Count != 0)
             {
                 var prevResult = currentThreadResult.MethodsCallsStack.Peek();
                 prevResult.Methods.Add(currentMethod);
