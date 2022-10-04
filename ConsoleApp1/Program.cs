@@ -24,9 +24,12 @@ namespace lab1 {
             var myTraceResult = new TraceResult();
             myTraceResult =  myTracer.GetTraceResult();
 
-            FileStream fileStream = new FileStream("result-json.json", FileMode.OpenOrCreate);
-            SerializationJson sj = new SerializationJson(myTraceResult);
-            sj.ShowResult(fileStream);
+            using (FileStream fileStream = new FileStream("result-json.json", FileMode.OpenOrCreate))
+            {
+                SerializationJson sj = new SerializationJson(myTraceResult);
+                sj.ShowResult(fileStream);
+            }
+            
 
             // var consoleStream = Console.OpenStandardOutput();
 

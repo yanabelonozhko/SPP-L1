@@ -1,0 +1,43 @@
+{
+  "Threads": [
+    {
+      "Id": 11,
+      "Time": 9,
+      "Methods": [
+        {
+          "Name": "MyMethod",
+          "Class": "Foo",
+          "Time": 3,
+          "MethodsInclude": [
+            {
+              "Name": "InnerMethod",
+              "Class": "Bar",
+              "Time": 0,
+              "MethodsInclude": []
+            }
+          ]
+        },
+        {
+          "Name": "InnerMethod",
+          "Class": "Bar",
+          "Time": 0,
+          "MethodsInclude": []
+        }
+      ],
+      "MethodsCallsStack": []
+    },
+    {
+      "Id": 12,
+      "Time": 9,
+      "Methods": [
+        {
+          "Name": "InnerMethod",
+          "Class": "Bar",
+          "Time": 0,
+          "MethodsInclude": []
+        }
+      ],
+      "MethodsCallsStack": []
+    }
+  ]
+}
