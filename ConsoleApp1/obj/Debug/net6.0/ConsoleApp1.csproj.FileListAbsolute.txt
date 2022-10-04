@@ -28,3 +28,5 @@ C:\Users\yr\Desktop\new spp\SPP-L1\ConsoleApp1\obj\Debug\net6.0\refint\ConsoleAp
 C:\Users\yr\Desktop\new spp\SPP-L1\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.pdb
 C:\Users\yr\Desktop\new spp\SPP-L1\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.genruntimeconfig.cache
 C:\Users\yr\Desktop\new spp\SPP-L1\ConsoleApp1\obj\Debug\net6.0\ref\ConsoleApp1.dll
+C:\Users\yr\Desktop\new spp\SPP-L1\ConsoleApp1\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\yr\Desktop\new spp\SPP-L1\ConsoleApp1\obj\Debug\net6.0\ConsoleApp1.csproj.CopyComplete

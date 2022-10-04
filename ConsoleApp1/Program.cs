@@ -23,11 +23,20 @@ namespace lab1 {
             
             var myTraceResult = new TraceResult();
             myTraceResult =  myTracer.GetTraceResult();
-            using (FileStream fs = new FileStream("result-json.json", FileMode.OpenOrCreate))
-            {
-                JsonSerializer.SerializeAsync<TraceResult>(fs, myTraceResult);
-                Console.WriteLine("Data has been saved to file");
-            }
+
+            FileStream fileStream = new FileStream("result-json.json", FileMode.OpenOrCreate);
+            SerializationJson sj = new SerializationJson(myTraceResult);
+            sj.ShowResult(fileStream);
+
+            // var consoleStream = Console.OpenStandardOutput();
+
+            // Логично, что если я передаю объект сериализатору, я зарее могу не знать 
+            // как я хочу выводить его в консоль или в файл 
+            //  SerializationXML sx = new SerializationXML(myTraceResult);
+
+
+            //  sx.ShowResult(consoleStream);
+
         }
     }
 }

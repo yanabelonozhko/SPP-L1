@@ -1,1 +1,0 @@
-{"Threads":[{"Id":11,"Time":7,"Methods":[{"Name":"MyMethod","Class":"Foo","Time":2,"MethodsInclude":[{"Name":"InnerMethod","Class":"Bar","Time":0,"MethodsInclude":[]}]},{"Name":"InnerMethod","Class":"Bar","Time":0,"MethodsInclude":[]}],"MethodsCallsStack":[]},{"Id":12,"Time":7,"Methods":[{"Name":"InnerMethod","Class":"Bar","Time":1,"MethodsInclude":[]}],"MethodsCallsStack":[]}]}
