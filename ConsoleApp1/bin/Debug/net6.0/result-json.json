@@ -1,14 +1,39 @@
 {
   "Threads": [
     {
-      "Id": 11,
-      "Time": 5,
+      "Id": 10,
+      "Time": 4,
       "Methods": [
         {
           "Name": "MyMethod",
           "Class": "Foo",
-          "Time": 2,
+          "Time": 1,
           "MethodsInclude": [
+            {
+              "Name": "InnerMethod",
+              "Class": "Bar",
+              "Time": 0,
+              "MethodsInclude": []
+            },
+            {
+              "Name": "InnerMethod",
+              "Class": "Bar",
+              "Time": 0,
+              "MethodsInclude": []
+            }
+          ]
+        },
+        {
+          "Name": "MyMethod",
+          "Class": "Foo",
+          "Time": 0,
+          "MethodsInclude": [
+            {
+              "Name": "InnerMethod",
+              "Class": "Bar",
+              "Time": 0,
+              "MethodsInclude": []
+            },
             {
               "Name": "InnerMethod",
               "Class": "Bar",
@@ -23,21 +48,7 @@
           "Time": 0,
           "MethodsInclude": []
         }
-      ],
-      "MethodsCallsStack": []
-    },
-    {
-      "Id": 12,
-      "Time": 5,
-      "Methods": [
-        {
-          "Name": "InnerMethod",
-          "Class": "Bar",
-          "Time": 1,
-          "MethodsInclude": []
-        }
-      ],
-      "MethodsCallsStack": []
+      ]
     }
   ]
 }

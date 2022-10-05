@@ -1,0 +1,54 @@
+<TraceResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Threads>
+    <ThreadResult>
+      <Id>10</Id>
+      <Time>4</Time>
+      <Methods>
+        <MethodResult>
+          <Name>MyMethod</Name>
+          <Class>Foo</Class>
+          <Time>1</Time>
+          <MethodsInclude>
+            <MethodResult>
+              <Name>InnerMethod</Name>
+              <Class>Bar</Class>
+              <Time>0</Time>
+              <MethodsInclude />
+            </MethodResult>
+            <MethodResult>
+              <Name>InnerMethod</Name>
+              <Class>Bar</Class>
+              <Time>0</Time>
+              <MethodsInclude />
+            </MethodResult>
+          </MethodsInclude>
+        </MethodResult>
+        <MethodResult>
+          <Name>MyMethod</Name>
+          <Class>Foo</Class>
+          <Time>0</Time>
+          <MethodsInclude>
+            <MethodResult>
+              <Name>InnerMethod</Name>
+              <Class>Bar</Class>
+              <Time>0</Time>
+              <MethodsInclude />
+            </MethodResult>
+            <MethodResult>
+              <Name>InnerMethod</Name>
+              <Class>Bar</Class>
+              <Time>0</Time>
+              <MethodsInclude />
+            </MethodResult>
+          </MethodsInclude>
+        </MethodResult>
+        <MethodResult>
+          <Name>InnerMethod</Name>
+          <Class>Bar</Class>
+          <Time>0</Time>
+          <MethodsInclude />
+        </MethodResult>
+      </Methods>
+    </ThreadResult>
+  </Threads>
+</TraceResult>

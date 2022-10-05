@@ -19,7 +19,7 @@ namespace lab1
     [Serializable]
     public class ThreadResult
     {
-        [XmlIgnore]
+       
         private readonly Stopwatch stopwatch;
 
         public int Id { get; set; }
@@ -30,8 +30,8 @@ namespace lab1
 
 
         // Стек для контроля включённых методов
-        [JsonIgnore]
-        [XmlIgnore]
+       
+        [XmlIgnore][Newtonsoft.Json.JsonIgnore]
         public Stack<MethodResult> MethodsCallsStack { get; } = new Stack<MethodResult>();
 
         public ThreadResult()
@@ -117,10 +117,7 @@ namespace lab1
             // Если такой метод существует, то 
             if (AllThreads.TryGetValue(currentThread.ManagedThreadId, out var existingThreadResult))
             {
-                // Тоже самое, добавляем метод, а так же пушим его в стек
-                existingThreadResult.Methods.Add(methodResult);
                 existingThreadResult.MethodsCallsStack.Push(methodResult);
-                // ретурн, чтобы не выполнять ещё кусок кода
                 return;
             }
 
@@ -132,7 +129,7 @@ namespace lab1
 
             // ИНИЦИАЛИЗАЦИЯ THREAD --------------------------------
             // В массив методов в структуре потока добавляем текущий метод
-            threadResult.Methods.Add(methodResult);
+            // threadResult.Methods.Add(methodResult);
 
             // Теперь надо запушить текущий метод, чтобы после проконтролировать, какой из 
             // них будет включённым
@@ -162,6 +159,10 @@ namespace lab1
                 // Добавляем в струтуру текущего метода метод, который в него входит
                 var prevResult = currentThreadResult.MethodsCallsStack.Peek();
                 prevResult.MethodsInclude.Add(currentMethod);
+            }
+            if(currentThreadResult.MethodsCallsStack.Count == 0)
+            {
+                currentThreadResult.Methods.Add(currentMethod);
             }
         }
 

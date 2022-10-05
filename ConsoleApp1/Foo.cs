@@ -21,6 +21,7 @@ namespace lab1
         {
             _tracer.StartTrace();
             _bar.InnerMethod();
+            _bar.InnerMethod();
             _tracer.StopTrace();
         }
     }
