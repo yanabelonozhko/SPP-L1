@@ -6,16 +6,20 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Collections.Concurrent;
 using System.Text.Json.Serialization;
+using System.Xml.Serialization;
 
 namespace lab1
 {
+    [Serializable]
     public class TraceResult
     {
         public ThreadResult[] Threads { get; set; }
     }
 
+    [Serializable]
     public class ThreadResult
     {
+        [XmlIgnore]
         private readonly Stopwatch stopwatch;
 
         public int Id { get; set; }
@@ -26,7 +30,8 @@ namespace lab1
 
 
         // Стек для контроля включённых методов
-        [JsonIgnore]    
+        [JsonIgnore]
+        [XmlIgnore]
         public Stack<MethodResult> MethodsCallsStack { get; } = new Stack<MethodResult>();
 
         public ThreadResult()
@@ -41,6 +46,8 @@ namespace lab1
             Time = (int)stopwatch.ElapsedMilliseconds;
         }
     }
+
+    [Serializable]
 
     public class MethodResult
     {
@@ -157,7 +164,8 @@ namespace lab1
                 prevResult.MethodsInclude.Add(currentMethod);
             }
         }
-      //  AllThreads - взять все ThreadResults отткуда
+
+        //  AllThreads - взять все ThreadResults отткуда
         public TraceResult GetTraceResult()
         {
             List<ThreadResult> SomeThreadResulst = new List<ThreadResult>();
