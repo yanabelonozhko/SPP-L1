@@ -1,8 +1,8 @@
 <TraceResult xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Threads>
     <ThreadResult>
-      <Id>11</Id>
-      <Time>4</Time>
+      <Id>10</Id>
+      <Time>6</Time>
       <Methods>
         <MethodResult>
           <Name>MyMethod</Name>
@@ -26,7 +26,7 @@
         <MethodResult>
           <Name>MyMethod</Name>
           <Class>Foo</Class>
-          <Time>0</Time>
+          <Time>1</Time>
           <MethodsInclude>
             <MethodResult>
               <Name>InnerMethod</Name>
@@ -46,6 +46,18 @@
           <Name>InnerMethod</Name>
           <Class>Bar</Class>
           <Time>0</Time>
+          <MethodsInclude />
+        </MethodResult>
+      </Methods>
+    </ThreadResult>
+    <ThreadResult>
+      <Id>11</Id>
+      <Time>6</Time>
+      <Methods>
+        <MethodResult>
+          <Name>InnerMethod</Name>
+          <Class>Bar</Class>
+          <Time>1</Time>
           <MethodsInclude />
         </MethodResult>
       </Methods>

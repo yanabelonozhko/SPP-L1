@@ -1,8 +1,8 @@
 {
   "Threads": [
     {
-      "Id": 11,
-      "Time": 4,
+      "Id": 10,
+      "Time": 6,
       "Methods": [
         {
           "Name": "MyMethod",
@@ -26,7 +26,7 @@
         {
           "Name": "MyMethod",
           "Class": "Foo",
-          "Time": 0,
+          "Time": 1,
           "MethodsInclude": [
             {
               "Name": "InnerMethod",
@@ -46,6 +46,18 @@
           "Name": "InnerMethod",
           "Class": "Bar",
           "Time": 0,
+          "MethodsInclude": []
+        }
+      ]
+    },
+    {
+      "Id": 11,
+      "Time": 6,
+      "Methods": [
+        {
+          "Name": "InnerMethod",
+          "Class": "Bar",
+          "Time": 1,
           "MethodsInclude": []
         }
       ]

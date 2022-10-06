@@ -7,6 +7,7 @@ namespace TestProject1
     public class Tests2
     {
         private TraceResult result;
+
         [SetUp]
         public void Setup()
         {
@@ -28,11 +29,13 @@ namespace TestProject1
             var len = result.Threads.Length;
             Assert.AreEqual(len,2);
         }
+
         public void TestingMethodsCountEqTo2()
         {
             ThreadResult[] arr = result.Threads;
             Assert.AreEqual(arr[0].Methods.Count,2);
         }
+
         [Test]
         public void TestingClassNameEqToFoo()
         {
@@ -41,12 +44,10 @@ namespace TestProject1
         }
 
         [Test]
-        public void MethodNameM1()
+        public void MethodNameEqToMyMethod()
         {
             var className = result.Threads[0].Methods[0].Name;
             Assert.That("MyMethod", Is.EqualTo(className));
         }
-
-
     }
 }
